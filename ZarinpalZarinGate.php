@@ -188,7 +188,7 @@ function woocommerce_zarinpalzg_init() {
 		$callBackUrl 	= $redirect_url;
 		include_once("lib/nusoap.php");
 		$client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
-		$res = $client->call('PaymentVerification', array(
+		$res = $client->call('PaymentRequest', array(
 		array(
 					'MerchantID' 	=> $merchantID ,
 					'Amount' 	=> $amount ,
