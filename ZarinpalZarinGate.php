@@ -8,7 +8,7 @@ Author: Masoud Amini
 Author URI: http://haftir.ir
 
  */
-include_once("lib/nusoap.php");
+
 add_action('plugins_loaded', 'woocommerce_zarinpalzg_init', 0);
 
 function woocommerce_zarinpalzg_init() {
@@ -22,7 +22,7 @@ function woocommerce_zarinpalzg_init() {
         public function __construct(){
             // Go wild in here
             $this -> id = 'zarinpalzg';
-            $this -> method_title = __('درگاه زرین پال', 'zarinpalzg');
+            $this -> method_title = __('زرین پال - زرین گیت', 'zarinpalzg');
             $this -> has_fields = false;
             $this -> init_form_fields();
             $this -> init_settings();
@@ -58,12 +58,12 @@ function woocommerce_zarinpalzg_init() {
                     'title' => __('عنوان:', 'zarinpalzg'),
                     'type'=> 'text',
                     'description' => __('عنوانی که کاربر در هنگام پرداخت مشاهده می کند', 'zarinpalzg'),
-                    'default' => __('پرداخت اینترنتی zarinpalzg', 'zarinpalzg')),
+                    'default' => __('پرداخت اینترنتی زرین پال - زرین گیت', 'zarinpalzg')),
                 'description' => array(
                     'title' => __('توضیحات:', 'zarinpalzg'),
                     'type' => 'textarea',
                     'description' => __('توضیحات قابل نمایش به کاربر در هنگام انتخاب درگاه پرداخت', 'zarinpalzg'),
-                    'default' => __('پرداخت از طریق درگاه zarinpalzg با کارت های عضو شتاب', 'zarinpalzg')),
+                    'default' => __('پرداخت از طریق درگاه زرین پال با کارت های عضو شتاب', 'zarinpalzg')),
                 'merchant' => array(
                     'title' => __('پین کد', 'zarinpalzg'),
                     'type' => 'text',
@@ -83,8 +83,8 @@ function woocommerce_zarinpalzg_init() {
          * - Options for bits like 'title' and availability on a country-by-country basis
          **/
         public function admin_options(){
-            echo '<h3>'.__('درگاه زرین پال', 'zarinpalzg').'</h3>';
-            echo '<p>'.__('درگاه زرین پال').'</p>';
+            echo '<h3>'.__('درگاه زرین پال - زرین گیت', 'zarinpalzg').'</h3>';
+            echo '<p>'.__('درگاه زرین پال -  زرین گیت').'</p>';
             echo '<table class="form-table">';
             $this -> generate_settings_html();
             echo '</table>';
@@ -128,6 +128,7 @@ function woocommerce_zarinpalzg_init() {
 			$merchantID = $this -> merchant;
 
 			$amount		= round($order -> order_total/10);
+			include_once("lib/nusoap.php");
 			$client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
 			$res = $client->call("PaymentVerification", array(
 					array(
@@ -185,15 +186,15 @@ function woocommerce_zarinpalzg_init() {
 		$amount 		= round($order -> order_total/10);
 		$invoice_id=date('Y').date('H').date('i').date('s').$order_id;
 		$callBackUrl 	= $redirect_url;
-		
+		include_once("lib/nusoap.php");
 		$client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
 		$res = $client->call('PaymentVerification', array(
 		array(
 					'MerchantID' 	=> $merchantID ,
-					'Amount' 		=> $amount ,
+					'Amount' 	=> $amount ,
 					'Description' 	=> $order_id ,
-					'Email' 		=> '' ,
-					'Mobile' 		=> '' ,
+					'Email' 	=> '' ,
+					'Mobile' 	=> '' ,
 					'CallbackURL' 	=> $callBackUrl
 
 					)
