@@ -8,7 +8,7 @@ Author: Masoud Amini
 Author URI: http://haftir.ir
 
  */
-require_once("lib/nusoap.php");
+include_once("lib/nusoap.php");
 add_action('plugins_loaded', 'woocommerce_zarinpalzg_init', 0);
 
 function woocommerce_zarinpalzg_init() {
