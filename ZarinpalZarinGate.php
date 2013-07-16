@@ -128,22 +128,22 @@ function woocommerce_zarinpalzg_init() {
 			$merchantID = $this -> merchant;
 
 			$amount		= round($order -> order_total/10);
-			$client = new nusoap_client('https://www.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
+			$client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
 			$res = $client->call("PaymentVerification", array(
 					array(
 							'MerchantID'	 => $merchantID ,
 							'Authority' 	 => $au ,
-							'Amount'	 	=> $amount
+							'Amount'   	 => $amount
 						)
 					));
 			
-				if ($res->Status == 100)
+				if ($res['Status'] == 100)
 				{
 					$_SESSION['zarinpalzg_id'] = '';
 					$output[status] = 1;
 					$output[message] ='پرداخت با موفقیت انجام گردید.';
 					$order -> payment_complete();
-                    $order -> add_order_note('پرداخت انجام گردید<br/>کد رهگیری بانک: '.$res->RefID);
+                    $order -> add_order_note('پرداخت انجام گردید<br/>کد رهگیری بانک: '.$res['RefID']);
                     $order -> add_order_note($this->msg['message']);
                     $woocommerce -> cart -> empty_cart();
 				}
@@ -186,7 +186,7 @@ function woocommerce_zarinpalzg_init() {
 		$invoice_id=date('Y').date('H').date('i').date('s').$order_id;
 		$callBackUrl 	= $redirect_url;
 		
-		$client = new nusoap_client('https://www.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
+		$client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
 		$res = $client->call('PaymentVerification', array(
 		array(
 					'MerchantID' 	=> $merchantID ,
@@ -198,9 +198,9 @@ function woocommerce_zarinpalzg_init() {
 
 					)
 	 ));
-		if ($res->Status == 100)
+		if ($res['Status'] == 100)
 		{
-			header('location: https://www.zarinpal.com/pg/StartPay/' . $res->Authority .'/ZarinGate');
+			header('location: https://www.zarinpal.com/pg/StartPay/' . $res['Authority'] .'/ZarinGate');
 			exit;
 		}
 		else
