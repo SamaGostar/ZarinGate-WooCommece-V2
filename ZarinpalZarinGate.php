@@ -52,7 +52,7 @@ function woocommerce_zarinpalzg_init() {
                 'enabled' => array(
                     'title' => __('فعال سازی/غیر فعال سازی', 'zarinpalzg'),
                     'type' => 'checkbox',
-                    'label' => __('فعال سازی درگاه پرداخت zarinpalzg', 'zarinpalzg'),
+                    'label' => __('فعال سازی درگاه پرداخت زرین پال - زرین گیت', 'zarinpalzg'),
                     'default' => 'no'),
                 'title' => array(
                     'title' => __('عنوان:', 'zarinpalzg'),
