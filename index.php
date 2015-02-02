@@ -28,7 +28,7 @@ function woocommerce_zarinpalzg_init() {
             return '<div class="box '.htmlentities($_GET['type']).'-box woocommerce-'.$neclss.'">'.urldecode($_GET['msg']).'</div>'.$content;
     }
 
-    class WC_Zarinpalwg_Pay extends WC_Payment_Gateway {
+    class WC_Zarinpalzg_Pay extends WC_Payment_Gateway {
 	protected $msg = array();
         public function __construct(){
             // Go wild in here
@@ -324,7 +324,7 @@ print_r($Status);
      * Add the Gateway to WooCommerce
      **/
     function woocommerce_add_zarinpalzg_gateway($methods) {
-        $methods[] = 'WC_Zarinpalwg_Pay';
+        $methods[] = 'WC_Zarinpalzg_Pay';
         return $methods;
     }
 
